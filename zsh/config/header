@@ -1,0 +1,4 @@
+#!/bin/bash
+clear
+echo -e "\n\e[1;37m-->[ \e[1;34m$(hostname)\e[1;37m :: \e[1;32m$(tty)\e[1;37m ] - [$(date +%m\|%d\|%y)]\e[0m"
+

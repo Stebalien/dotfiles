@@ -1,0 +1,15 @@
+[Desktop Entry]
+Name=Neon
+Type=X-GNOME-Metatheme
+Comment=NEON 1.0\n
+© Henrique C. Alves 2008 <hcarvalhoalves gmail.com>\n\n
+A theme for the Gnome desktop\n
+
+[X-GNOME-Metatheme]
+GtkTheme=Neon
+MetacityTheme=Neon
+IconTheme=Neon
+GtkColorScheme=fg_color:#bd70bd70bd70,bg_color:#333333333333,text_color:#dc28dc28dc28,base_color:#1eb81eb81eb8,selected_fg_color:#ffffffffffff,selected_bg_color:#414190b5e473,tooltip_fg_color:#d1ebd1ebd1eb,tooltip_bg_color:#3d703d703d70
+CursorTheme=Vanilla-DMZ-AA
+CursorSize=24
+NotificationTheme=ubuntu

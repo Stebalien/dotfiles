@@ -1,0 +1,6 @@
+Here are my configuration files for zsh. You will notice that some of the files 
+in 'config' have a .zsh ending and some do not; Those that do not have the .zsh 
+extension work with bash as well.
+
+Put everything in the config folder into ~/.config/shell
+Move zshrc to ~/.zshrc

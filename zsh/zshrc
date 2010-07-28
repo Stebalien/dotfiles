@@ -1,0 +1,71 @@
+# Start tmux on login
+test $TMUX || test $- = ${-/l/} || exec /usr/bin/tmux
+
+zstyle ':completion:*' completer _expand _complete _ignored _approximate
+zstyle ':completion:*' group-name ''
+zstyle ':completion:*' ignore-parents parent pwd
+zstyle ':completion:*' insert-unambiguous true
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+zstyle ':completion:*' matcher-list '' 'm:{[:lower:]}={[:upper:]}' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' 'r:|[._-]=* r:|=* l:|=*'
+
+# Kill and killall
+zstyle ':completion:*:*:kill:*' menu yes select
+zstyle ':completion:*:kill:*'   force-list always
+
+zstyle ':completion:*:*:killall:*' menu yes select
+zstyle ':completion:*:killall:*'   force-list always
+
+# Disable correction in some commands
+alias mv='nocorrect mv'
+alias cp='nocorrect cp'
+alias mkdir='nocorrect mkdir'
+alias pkg='nocorrect pkg'
+alias man='nocorrect man'
+alias git='nocorrect git'
+
+# Disable globbing with find
+alias find='noglob find'
+
+zstyle :compinstall filename "$HOME/.zshrc"
+
+autoload -Uz compinit
+compinit
+
+# History
+HISTFILE=$XDG_CONFIG_HOME/shell/history
+HISTSIZE=1000
+SAVEHIST=1000
+
+# Random Options
+setopt appendhistory autocd extendedglob interactivecomments cdablevars correctall incappendhistory histignoredups histignorespace nobeep
+
+# Key Bindings
+bindkey -v
+bindkey "\e[A" history-beginning-search-backward
+bindkey "\e[B" history-beginning-search-forward
+bindkey '^A' vi-beginning-of-line
+bindkey '^E' vi-end-of-line
+
+# Remove sudo tty ticket on exit
+trap "sudo -n test -d /var/run/sudo/`whoami`/ 2> /dev/null && sudo -n rm /var/run/sudo/`whoami`/$(basename `tty`) " EXIT
+
+
+# Source Global Functions
+source $XDG_CONFIG_HOME/shell/functions
+
+# Source anything for zsh (color functions etc)
+for file in $XDG_CONFIG_HOME/shell/*.zsh; do
+    source $file
+done
+
+# Vim as the pager
+export PAGER='/bin/sh -c "unset PAGER;col -b -x |     vim -u /usr/share/vim/vim72/macros/less.vim -R -c '\''set ft=man'\''     -c '\''nmap K :Man <C-R>=expand(\"<cword>\")<CR><CR>'\'' -"'
+
+# Awsome prompt
+PROMPT="
+┌( %{$fg[white]$bold_color%}%n%{$reset_color%} )─( %D{%I:%M %p} )$(jc)
+└( %! : %{$fg[red]$bold_color%}%~%{$reset_color%} )·> "
+
+
+# Source the header
+source $XDG_CONFIG_HOME/shell/header

@@ -1,0 +1,142 @@
+# Conky sample configuration
+#
+# the list of variables has been removed from this file in favour
+# of keeping the documentation more maintainable.
+# Check http://conky.sf.net for an up-to-date-list.
+
+# set to true if you want Conky to be forked in the background
+background false
+# background no
+temperature_unit fahrenheit
+# X font when Xft is disabled, you can pick one with program xfontsel artwiz package?
+#font 5x8
+#font 6x9
+#font 6x10
+#font 6x13
+#font 8x13
+#font 9x15
+#font *mintsmild.se*
+#font -*-*-*-*-*-*-34-*-*-*-*-*-*-*
+
+# Use Xft?
+use_xft yes
+
+# Set conky on the bottom of all other applications
+# on_bottom no
+
+# Xft font when Xft is enabled
+xftfont Droid Sans Mono:size=8
+
+# Text alpha when using Xft
+xftalpha 1.0
+
+# Print everything to stdout?
+# out_to_console no
+
+# MPD host/port
+# mpd_host localhost
+# mpd_port 6600
+# mpd_password tinker_bell
+
+# Print everything to console?
+# out_to_console no
+
+# mail spool
+# mail_spool $MAIL
+
+# Update interval in seconds
+update_interval 1.0
+
+# This is the number of times Conky will update before quitting.
+# Set to zero to run forever.
+total_run_times 0
+
+# Create own window instead of using desktop (required in nautilus)
+#own_window yes
+#own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
+
+# Use pseudo transparency with own_window?
+own_window_argb_visual yes
+own_window_argb_value 180
+own_window_transparent no
+own_window yes
+own_window_type desktop
+own_window_hints sticky,skip_pager,skip_taskbar,below,undecorated
+# If own_window_transparent is set to no, you can set the background colour here
+own_window_colour 000000
+
+# Use double buffering (reduces flicker, may not work for everyone)
+double_buffer yes
+
+# Minimum size of text area
+minimum_size 1264 5
+
+# Draw shades?
+draw_shades no
+
+# Draw outlines?
+draw_outline no
+
+# Draw borders around text
+draw_borders yes
+
+# Stippled borders?
+stippled_borders 0
+
+# border width
+border_width 1
+
+# Default colors and also border colors
+default_color 555555
+default_shade_color white
+default_outline_color black
+
+# Text alignment, other possible values are commented
+alignment top_middle
+#alignment top_right
+#alignment bottom_left
+#alignment bottom_right
+#alignment none
+
+# Gap between borders of screen and text
+# same thing as passing -x at command line
+gap_x 0
+gap_y 2
+
+# Subtract file system buffers from used memory?
+no_buffers yes
+
+# set to yes if you want all text to be in uppercase
+uppercase no
+
+# number of cpu samples to average
+# set to 1 to disable averaging
+cpu_avg_samples 2
+
+# number of net samples to average
+# set to 1 to disable averaging
+net_avg_samples 2
+
+# Force UTF8? note that UTF8 support required XFT
+override_utf8_locale no
+
+# Pad Percents/spacer
+pad_percents 3
+use_spacer left
+
+#   mldonkey_hostname     Hostname for mldonkey stuff, defaults to localhost
+#   mldonkey_port         Mldonkey port, 4001 default
+#   mldonkey_login        Mldonkey login, default none
+#   mldonkey_password     Mldonkey password, default none
+
+# boinc (seti) dir
+# seti_dir /opt/seti
+
+# variable is given either in format $variable or in ${variable}. Latter
+# allows characters right after the variable and must be used in network
+# stuff because of an argument
+
+# stuff after 'TEXT' will be formatted on screen
+
+TEXT
+${color 0090ff}${if_mpd_playing}${mpd_status}: ${mpd_title 30}${else}Not Playing${endif}${alignc -75}${color 555555}CPU: ${color 888888}${cpubar 4,50}${color 888888} $cpu%${color 555555}${color 555555} | MEM: ${color 888888}${membar 4,50} $mem${color 555555} | NET:${color 888888}${upspeed wlan0}/${downspeed wlan0}${color 555555} | TEMP: ${color 888888}${acpitemp}F${color 555555} | BAT: ${color 888888}${battery_bar 4,50 BAT0} ${battery_short}${color 555555} | IO:${color 888888}$diskio_write/$diskio_read${color 555555}| UPD:${color 888888} ${texeci 300 bash -c "ionice -c3 pacman -Quq |wc -l"} ${color 555555}| MAIL:${color 888888}${unseen_mails PATH_TO_YOUR_MAIL}${alignr}${color 0090ff}${time %I:%M%P [%m|%d|%y]}
