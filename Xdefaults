@@ -1,0 +1,104 @@
+! Urxvt Options
+urxvt*urlLauncher:      firefox
+urxvt*geometry: 	80x25
+urxvt*externalBorder:   0
+urxvt*internalBorder:   0
+urxvt*background:       rgba:0000/0000/0000/dddd
+urxvt*depth:		32
+urxvt*foreground:       #eeeeee
+urxvt*fading:   	15
+urxvt*tintColor:        blue
+urxvt*shading:  	30
+urxvt*inheritPixmap:    True
+urxvt*scrollBar:        False
+urxvt*saveLines:        10000
+urxvt*cursorBlink:      true
+urxvt*font:     xft:DejaVu Sans Mono:pixelsize=11:antialias=true:hinting=true
+urxvt*secondaryScroll:  true    # Enable Shift-PageUp/Down in screen
+urxvt*pastableTabs:     true
+urxvt*title:            Terminal
+urxvt*perl-ext-common:  default,matcher
+urxvt.matcher.button:   1
+
+! Colors
+!!Black (not tango) + DarkGrey
+*color0:         rgb:00/00/00
+*color8:         rgb:55/57/53
+!!red
+*color1:         rgb:85/0d/0d
+*color9:         rgb:98/2b/2b
+!!green
+*color2:         rgb:88/be/32
+*color10:        rgb:af/f7/3e
+!!yellow (orange)
+*color3:         rgb:ff/7e/00
+*color11:        rgb:fa/d4/3d
+!!blue
+*color4:         rgb:2e/4c/99
+*color12:        rgb:33/6e/c0
+!!magenta
+*color5:         rgb:70/6c/9a
+*color13:        rgb:82/6a/b1
+!!cyan
+*color6:         rgb:00/90/ff
+*color14:        rgb:80/b0/dd
+!!white
+*color7:         rgb:aa/aa/aa
+*color15:        rgb:ff/ff/ff
+!URxvt.perl-ext-common: tabbed
+!URxvt.tabbed.tabbar-fg:        9 # Red fg (lines in between)
+!URxvt.tabbed.tabbar-bg:        0 # Black bg
+!URxvt.tabbed.tab-fg:   2 # Green letters
+!URxvt.tabbed.tab-bg:   0 # Black bg
+
+
+! xscreensaver ---------------------------------------------------------------
+
+!font settings
+xscreensaver.Dialog.headingFont:        -*-droid sans-bold-r-*-*-12-*-*-*-*-*-*-*
+xscreensaver.Dialog.bodyFont:           -*-droid sans-medium-r-*-*-12-*-*-*-*-*-*-*
+xscreensaver.Dialog.labelFont:          -*-droid sans-medium-r-*-*-12-*-*-*-*-*-*-*
+xscreensaver.Dialog.unameFont:          -*-droid sans-medium-r-*-*-12-*-*-*-*-*-*-*
+xscreensaver.Dialog.buttonFont:         -*-droid sans-bold-r-*-*-12-*-*-*-*-*-*-*
+xscreensaver.Dialog.dateFont:           -*-droid sans-medium-r-*-*-12-*-*-*-*-*-*-*
+xscreensaver.passwd.passwdFont:         -*-droid sans-bold-r-*-*-12-*-*-*-*-*-*-*
+!general dialog box (affects main hostname, username, password text)
+xscreensaver.Dialog.foreground:         #ffffff
+xscreensaver.Dialog.background:         #111111
+xscreensaver.Dialog.topShadowColor:     #111111
+xscreensaver.Dialog.bottomShadowColor:  #111111
+xscreensaver.Dialog.Button.foreground:  #aaaaaa
+xscreensaver.Dialog.Button.background:  #000000
+!username/password input box and date text colour
+xscreensaver.Dialog.text.foreground:    #aaaaaa
+xscreensaver.Dialog.text.background:    #000000
+xscreensaver.Dialog.internalBorderWidth:24
+xscreensaver.Dialog.borderWidth:        20
+xscreensaver.Dialog.shadowThickness:    2
+!timeout bar (background is actually determined by Dialog.text.background)
+xscreensaver.passwd.thermometer.foreground:  #0050FF
+xscreensaver.passwd.thermometer.background:  #000000
+xscreensaver.passwd.thermometer.width:       4
+!datestamp format--see the strftime(3) manual page for details
+xscreensaver.dateFormat:    %I:%M%P %a %b %d, %Y
+xscreensaver.Dialog.logo.width:         1
+xscreensaver.Dialog.logo.height:        1
+*Fliptext.font:             -*-droid sans-bold-r-*-*-12-*-*-*-*-*-*-*
+
+! Mouse theme
+Xcursor.theme: Ecliz
+
+! Xft font settings
+Xft.dpi:        96
+Xft.antialias:  true
+Xft.rgba:       rgb
+Xft.hinting:    true
+Xft.hintstyle:  hintslight
+
+! GVim
+Vim*useSchemes: all
+Vim*sgiMode:    true
+Vim*useEnhancedFSB: true
+Vim*foreground: white
+Vim*background: black
+
