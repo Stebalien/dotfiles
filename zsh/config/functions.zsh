@@ -46,11 +46,3 @@ function cdl() {
     cd $@ && ls
 }
 
-# used for PS1
-function jc() {
-    job_count=$(jobs|wc -l);
-    if [ ! $job_count -eq 0 ]; then
-        echo -n "─[$job_count]"
-    fi
-}
-
