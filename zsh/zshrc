@@ -59,13 +59,16 @@ for file in $XDG_CONFIG_HOME/shell/*.zsh; do
 done
 
 # Vim as the pager
-export PAGER='/bin/sh -c "unset PAGER;col -b -x |     vim -u /usr/share/vim/vim72/macros/less.vim -R -c '\''set ft=man'\''     -c '\''nmap K :Man <C-R>=expand(\"<cword>\")<CR><CR>'\'' -"'
+export PAGER='/bin/sh -c "unset PAGER;col -b -x | vim -u /usr/share/vim/vim72/macros/less.vim -R -c '\''set ft=man'\'' -c '\''nmap K :Man <C-R>=expand(\"<cword>\")<CR><CR>'\'' -"'
 
 # Awsome prompt
-PROMPT="
-┌( %{$fg[white]$bold_color%}%n%{$reset_color%} )─( %D{%I:%M %p} )$(jc)
-└( %! : %{$fg[red]$bold_color%}%~%{$reset_color%} )·> "
+#PROMPT="
+#┌( %{$fg[white]$bold_color%}%n%{$reset_color%} )─( %D{%I:%M %p} )$(jc)
+#└( %! : %{$fg[red]$bold_color%}%~%{$reset_color%} )·> "
 
+PROMPT="
+%{$fg[black]$bold_color%}┌╸%b%{$fg[blue]%}%n%{$fg[black]$bold_color%}╺─╸%b%{$fg[cyan]%}%~%{$fg[black]$bold_color%}╺%{$fg[green]%}%(1j: %j:)
+%{$fg[black]$bold_color%}└─╍ %{$reset_color%}"
 
 # Source the header
 source $XDG_CONFIG_HOME/shell/header

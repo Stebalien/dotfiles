@@ -1,3 +1,4 @@
+#!/bin/zsh
 autoload colors zsh/terminfo
 if [[ "$terminfo[colors]" -ge 8 ]]; then
     colors
@@ -10,8 +11,13 @@ if [[ "$terminfo[colors]" -ge 8 ]]; then
     export GREP_OPTIONS="--color=auto --binary-files=without-match --directories=skip"
     
     # Diff
-    alias diff='colordiff'
-
+    function diff() {
+        if [[ -t 1 ]]; then
+            colordiff $@
+        else
+            command diff $@
+        fi
+    }
     # Less
     LESS_TERMCAP_mb=$'\E[01;31m'
     LESS_TERMCAP_md=$'\E[01;38;5;74m'
