@@ -58,7 +58,7 @@ for file in $XDG_CONFIG_HOME/shell/*.zsh; do
 done
 
 # Vim as the pager
-export PAGER='/bin/sh -c "unset PAGER;col -b -x | vim -u /usr/share/vim/vim72/macros/less.vim -R -c '\''set ft=man'\'' -c '\''nmap K :Man <C-R>=expand(\"<cword>\")<CR><CR>'\'' -c '\''set mouse=a'\'' -"'
+export PAGER='/bin/sh -c "unset PAGER;col -b -x | vim -u /usr/share/vim/vim73/macros/less.vim -R -c '\''set ft=man'\'' -c '\''nmap K :Man <C-R>=expand(\"<cword>\")<CR><CR>'\'' -c '\''set mouse=a'\'' -"'
 
 # Source the header
 source $XDG_CONFIG_HOME/shell/header
