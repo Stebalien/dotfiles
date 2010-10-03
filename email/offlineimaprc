@@ -1,0 +1,36 @@
+[general]
+accounts = GMail
+maxsyncaccounts = 2
+socktimeout = 60
+ui = TTY.TTYUI
+metadata = ~/.local/share/offlineimap
+pythonfile = /usr/local/bin/pykeyring
+
+[Account GMail]
+holdconnectionopen = true
+keepalive = 60
+autorefresh = 30
+quick = 6
+localrepository = GMail-Local
+remoterepository = GMail-Remote
+
+[Repository GMail-Local]
+type = Maildir
+localfolders = ~/.mail/GMail
+
+[Repository GMail-Remote]
+type = Gmail
+remoteusereval = get_username("imap.gmail.com", "imap")
+remotepasseval = get_password("imap.gmail.com", "imap")
+realdelete = no
+nametrans = lambda folder:  re.sub('Sent Mail$', 'Sent', re.sub('Starred$', 'Flagged', re.sub('^\[Gmail\].', '', folder)))
+maxconnections = 2
+folderfilter = lambda folder: folder in \
+            [ 'INBOX', 
+            '[Gmail]/Sent Mail', 
+            '[Gmail]/Spam', 
+            '[Gmail]/Drafts', 
+            '[Gmail]/Trash',
+            '[Gmail]/Archived']
+
+# vim: ft=cfg tw=0

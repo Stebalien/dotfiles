@@ -1,0 +1,52 @@
+#======================================================#
+# Boring details
+set realname = "Name"
+set use_from = yes
+set envelope_from ="yes"
+set sendmail = "/usr/bin/msmtp"
+
+#======================================================#
+# Folders
+set mbox_type=Maildir
+set move = no
+set folder="$HOME/.mail"                # Mailboxes in here
+set postponed=+postponed
+set header_cache=$XDG_CACHE_HOME/mutt/headers
+set message_cachedir=$XDG_CACHE_HOME/mutt/messages
+set tmpdir=$XDG_CACHE_HOME
+
+#======================================================#
+# Headers
+hdr_order Subject: From: To: Cc: Date:
+ignore *
+unignore Date: From: To: Cc: Subject:
+               
+#======================================================#
+# Formats
+set date_format         = "%m-%d-%y"
+set index_format        = "%3C [%Z] %-26.26s %-18.18F %D"
+set status_format       = "---[ %f (%m)%?n?+%n?%?d?%? ] ---%>- (%P) ---"
+set alias_format        = "%4n %t %-20a  %r"
+auto_view text/html
+
+#======================================================#
+# Aliases
+set sort_alias=alias     # sort aliases in alpha order by alias name
+set alias_file=$XDG_CONFIG_HOME/mutt/aliases.muttrc
+source $alias_file
+
+source $XDG_CONFIG_HOME/mutt/colors.muttrc
+source $XDG_CONFIG_HOME/mutt/sidebar.muttrc
+source $XDG_CONFIG_HOME/mutt/macros.muttrc
+source $XDG_CONFIG_HOME/mutt/settings.muttrc
+source $XDG_CONFIG_HOME/mutt/gnupg.muttrc
+source $XDG_CONFIG_HOME/mutt/abook.muttrc
+source $XDG_CONFIG_HOME/mutt/lists.muttrc
+
+#======================================================#
+# Accounts
+`$XDG_CONFIG_HOME/mutt/setup_accounts.sh`
+
+#======================================================#
+# Turn off the led on start.
+push "<shell-escape>xset -led 3<enter>"

@@ -1,0 +1,13 @@
+Move `muttrc' to your home directory as `~/.muttrc'.
+Move all of the other files to `~/.config/mutt/'.
+
+You will need to edit `~/.muttrc' and `~/.config/mutt/GMail.accountrc'
+I store my mail in `~/.mail' so if you want to store your mail
+somewhere else, you will also need to edit `setup_accounts.sh'.
+
+You can add as many accounts as you want. Just make a copy of
+the `GMail.accountrc' file and name it `<MY_ACCOUNT_NAME>.accountrc'.
+<MY_ACCOUNT_NAME> must be the folder in which the mail for this
+account is stored in your mail directory (~/.mail/<MY_ACCOUNT_NAME>).
+Make the default-account link point to the account that you want to
+be made default on startup.

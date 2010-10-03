@@ -1,0 +1,23 @@
+# vim: set filetype=muttrc :
+set nomarkers        # Don't mark wrapped lines of text in the pager with a +
+set smart_wrap       # Don't wrap mid-word
+set pager_context=5  # Retain 5 lines of previous page when scrolling.
+set status_on_top    # Status bar on top.
+unset move
+set delete
+unset confirmappend
+set quit
+unset mark_old
+set editor="vim -c 'set tw=70 et' '+/^$' -c start "
+set edit_headers
+set fast_reply
+set sendmail_wait = -1
+set fcc_attach
+set mime_forward
+set reply_to
+set reverse_name
+set sig_dashes
+set pager_stop
+set menu_scroll
+set tilde
+set wait_key = no

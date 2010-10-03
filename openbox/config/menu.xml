@@ -49,7 +49,7 @@
 		<item label="File Manager">
 			<action name="Execute">
 				<execute>
-					pcmanfm --no-desktop
+					thunar
 				</execute>
 			</action>
 		</item>

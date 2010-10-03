@@ -1,0 +1,16 @@
+# vim: set filetype=muttrc :
+
+# Sidebar
+set sidebar_visible=yes
+set sidebar_width=15
+set sidebar_delim='|'
+# color of folders with new mail
+color sidebar_new yellow default 
+# ctrl-n, ctrl-p to select next, prev folder
+# ctrl-o to open selected folder
+bind index <esc>k sidebar-prev
+bind index <esc>j sidebar-next
+bind index <esc>l sidebar-open
+
+message-hook ~A 'unset sidebar_visible; exec refresh'
+macro pager q  "<exit><enter-command>set sidebar_visible<return><refresh>"

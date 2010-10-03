@@ -1,0 +1,11 @@
+# vim: set filetype=muttrc :
+
+set from      = "username@gmail.com"
+set sendmail  = "/usr/bin/msmtp -a gmail"
+set mbox      = "+GMail/INBOX"
+set spoolfile = "+GMail/INBOX"
+unset record
+
+macro index D "<save-message><down>+GMail/Trash<enter>"              "move message to the trash"
+macro index S "<save-message><down>+GMail/Spam<enter>"               "mark message as spam"
+macro index A "<save-message><down>+GMail/Archived<enter>"           "archive message"

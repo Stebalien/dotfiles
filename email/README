@@ -1,0 +1,16 @@
+I use offlineimap and msmtp to fetch/send my email.
+
+To get offlineimap and msmtp working, copy `offlineimaprc' and `msmtprc' to
+`~/.offlineimaprc' and `~/.msmtprc' respectivly and edit the account details.
+If you want to use gnome-keyring:
+    1. Copy `pykeyring' to `/usr/local/bin/pykeyring'.
+    2. Recompile msmtp with gnome-keyring support
+    3. Run pykeyring and follow the instructions.
+If you don't want to use gnome-keyring:
+    - Edit ~/.offlineimaprc
+        1. Remove the `pythonfile' line.
+        2. Replace `remoteusereval = get_username("imap.gmail.com", "imap")'
+           with `remoteuser = "USERNAME@gmail.com"'
+        3. Replace `remotepasseval = get_password("imap.gmail.com", "imap")'
+           with `remotepass = "PASSWORD"
+    - Edit ~/.msmtprc and add `password PASSWORD' under the user field.
