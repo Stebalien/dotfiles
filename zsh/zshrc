@@ -1,4 +1,3 @@
-# Start tmux on login
 
 zstyle ':completion:*' completer _expand _complete _ignored _approximate
 zstyle ':completion:*' group-name ''
@@ -36,7 +35,7 @@ HISTSIZE=1000
 SAVEHIST=1000
 
 # Random Options
-setopt appendhistory autocd extendedglob interactivecomments cdablevars correctall incappendhistory histignoredups histignorespace nobeep
+setopt appendhistory autocd extendedglob interactivecomments cdablevars correctall incappendhistory histignorealldups histignorespace nobeep
 
 # Key Bindings
 bindkey -v

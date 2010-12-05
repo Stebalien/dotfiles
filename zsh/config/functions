@@ -13,6 +13,7 @@ python() {
     fi
 }
 alias uu='pkg u'
+alias pacman='pacman-color'
 
 # tools
 alias up='cd ..'
@@ -31,24 +32,15 @@ alias srm='srm -Dv'
 alias quit='exit'
 alias :q='exit'
 
-# VPN
-vpn() {
-    if [ -d /etc/openvpn/$1 ]; then
-        cd /etc/openvpn/$1
-        sudo openvpn client.conf
-    else
-        sudo openconnect --script /etc/vpnc/vpnc-script $1
-    fi
-}
 alias p="pgrep -lf"
-calc(){ awk "BEGIN{ print $* }" ;}
+calc(){ awk "BEGIN{ print $* }"}
+alias calc="noglob calc"
 service() {
     serv=$1
-    shift 1
-    [ -x /etc/rc.d/$serv ] && sudo /etc/rc.d/$serv $@ || echo "Service \"$serv\" does not exist" >&2
-}
-
-ranger() {
-    command ranger --fail-unless-cd $@ &&
-    cd "$(grep \^\' ~/.ranger/bookmarks | cut -b3-)"
+    if test -x /etc/rc.d/$serv; then
+        shift 1
+        sudo /etc/rc.d/$serv $@
+    else
+        echo "Service \"$serv\" does not exist" >&2
+    fi
 }
