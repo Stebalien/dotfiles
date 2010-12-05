@@ -159,7 +159,7 @@ abstracts = {
   # used internally by this theme
   #  action_core = "$*";
   sak = "|";
-  action_core = "%C(%R*          %C) %W$0 %n";
+  action_core = "           %R*%b++ %w$0 %n";
 
   # generic one that's used by most actions
   action = "{action_core $*}";
