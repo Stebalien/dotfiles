@@ -1,24 +1,29 @@
 ! Urxvt Options
 urxvt*urlLauncher:      firefox
-urxvt*geometry: 	80x25
+urxvt*geometry:         80x25
 urxvt*externalBorder:   0
 urxvt*internalBorder:   0
 urxvt*background:       rgba:0000/0000/0000/dddd
-urxvt*depth:		32
+urxvt*transparent:      true
+urxvt*depth:            32
 urxvt*foreground:       #eeeeee
-urxvt*fading:   	15
-urxvt*tintColor:        blue
-urxvt*shading:  	30
-urxvt*inheritPixmap:    True
-urxvt*scrollBar:        False
+urxvt*fading:           15
+urxvt*tintColor:        black
+urxvt*shading:          30
+urxvt*inheritPixmap:    false
+urxvt*scrollBar:        false
 urxvt*saveLines:        10000
 urxvt*cursorBlink:      true
+!urxvt*cursorUnderline:  true
 urxvt*font:     xft:DejaVu Sans Mono:pixelsize=11:antialias=true:hinting=true
 urxvt*secondaryScroll:  true    # Enable Shift-PageUp/Down in screen
 urxvt*pastableTabs:     true
 urxvt*title:            Terminal
 urxvt*perl-ext-common:  default,matcher
 urxvt.matcher.button:   1
+urxvt*modifier:         alt
+URxvt*cutchars: '`"()\'*<>[]{|}'
+URxvt.matcher.pattern.1: \\bwww\\.[\\w-]\\.[\\w./?&@#-]*[\\w/-]
 
 ! Colors
 !!Black (not tango) + DarkGrey
@@ -26,7 +31,7 @@ urxvt.matcher.button:   1
 *color8:         rgb:55/57/53
 !!red
 *color1:         rgb:85/0d/0d
-*color9:         rgb:98/2b/2b
+*color9:         rgb:99/10/00
 !!green
 *color2:         rgb:88/be/32
 *color10:        rgb:af/f7/3e
@@ -38,7 +43,7 @@ urxvt.matcher.button:   1
 *color12:        rgb:33/6e/c0
 !!magenta
 *color5:         rgb:70/6c/9a
-*color13:        rgb:82/6a/b1
+*color13:        rgb:ff/00/ff
 !!cyan
 *color6:         rgb:00/90/ff
 *color14:        rgb:80/b0/dd
@@ -101,4 +106,3 @@ Vim*sgiMode:    true
 Vim*useEnhancedFSB: true
 Vim*foreground: white
 Vim*background: black
-
