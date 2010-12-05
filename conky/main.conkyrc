@@ -9,15 +9,14 @@ background false
 # background no
 temperature_unit fahrenheit
 # X font when Xft is disabled, you can pick one with program xfontsel artwiz package?
-#font 5x8
+font 5x8
 #font 6x9
 #font 6x10
 #font 6x13
 #font 8x13
 #font 9x15
-#font *mintsmild.se*
-#font -*-*-*-*-*-*-34-*-*-*-*-*-*-*
-
+font snap.se
+#font -*-andale mono-medium-r-*-*-10-*-*-*-*-*-*-*
 # Use Xft?
 use_xft yes
 
@@ -25,10 +24,10 @@ use_xft yes
 # on_bottom no
 
 # Xft font when Xft is enabled
-xftfont Droid Sans Mono:size=8
+#xftfont snap:size=7
 
 # Text alpha when using Xft
-xftalpha 1.0
+xftalpha 0.7
 
 # Print everything to stdout?
 # out_to_console no
@@ -57,19 +56,20 @@ total_run_times 0
 
 # Use pseudo transparency with own_window?
 own_window_argb_visual yes
-own_window_argb_value 180
+own_window_argb_value 200
 own_window_transparent no
 own_window yes
 own_window_type desktop
 own_window_hints sticky,skip_pager,skip_taskbar,below,undecorated
 # If own_window_transparent is set to no, you can set the background colour here
 own_window_colour 000000
+own_window_title Main
 
 # Use double buffering (reduces flicker, may not work for everyone)
 double_buffer yes
 
 # Minimum size of text area
-minimum_size 1264 5
+minimum_size 1270 5
 
 # Draw shades?
 draw_shades no
@@ -87,12 +87,15 @@ stippled_borders 0
 border_width 1
 
 # Default colors and also border colors
-default_color 555555
-default_shade_color white
+default_color 333333
+default_shade_color black
 default_outline_color black
+color1 777777
+color2 bbbbbb
+color3 aff73e
 
 # Text alignment, other possible values are commented
-alignment top_middle
+alignment top_left
 #alignment top_right
 #alignment bottom_left
 #alignment bottom_right
@@ -100,7 +103,7 @@ alignment top_middle
 
 # Gap between borders of screen and text
 # same thing as passing -x at command line
-gap_x 0
+gap_x 4
 gap_y 2
 
 # Subtract file system buffers from used memory?
@@ -138,5 +141,7 @@ use_spacer left
 
 # stuff after 'TEXT' will be formatted on screen
 
+if_up_strictness address
+
 TEXT
-${color 0090ff}${if_mpd_playing}${mpd_status}: ${mpd_title 30}${else}Not Playing${endif}${alignc -75}${color 555555}CPU: ${color 888888}${cpubar 4,50}${color 888888} $cpu%${color 555555}${color 555555} | MEM: ${color 888888}${membar 4,50} $mem${color 555555} | NET:${color 888888}${upspeed wlan0}/${downspeed wlan0}${color 555555} | TEMP: ${color 888888}${acpitemp}F${color 555555} | BAT: ${color 888888}${battery_bar 4,50 BAT0} ${battery_short}${color 555555} | IO:${color 888888}$diskio_write/$diskio_read${color 555555}| UPD:${color 888888} ${texeci 300 bash -c "ionice -c3 pacman -Quq |wc -l"} ${color 555555}| MAIL:${color 888888}${unseen_mails PATH_TO_YOUR_MAIL}${alignr}${color 0090ff}${time %I:%M%P [%m|%d|%y]}
+${color3}${if_mpd_playing}${mpd_status}: ${mpd_title 30}${else}Not Playing${endif}${alignc -60}${color1}[ cpu: ${color2}$cpu%${color1}${color1} ] [ mem: ${color2}$mem${color1} ] [ bat: ${color2}${if_match ${battery_percent} <= 10}${color fad43d}${endif}${battery_short}${color1} ] [ temp: ${color2}${acpitemp}F${color1} ] [ io:${color2}$diskio_write/$diskio_read${color1}] [ net:${color2}${if_up eth0}${upspeed eth0}/${downspeed eth0}${else}${upspeed wlan0}/${downspeed wlan0}${endif}${color1} ] [ vol:${color2}${if_mixer_mute} -  ${else}${mixer}%${endif}${color1} ] [ stat: ${color2}${texeci 300 sh -c "ionice -c3 nice pacman -Quq |wc -l"}${color1}u${color2} ${unseen_mails PATH_TO_YOUR_MAIL}:${unseen_mails PATH_TO_YOUR_MAIL}${color1}m ]${alignr}${color3}${time %I:%M%P %a[%m|%d|%y]}
