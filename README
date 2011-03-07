@@ -10,5 +10,8 @@ I currently have configurations for:
 * gtk
 * tmux
 * xchat
+* irssi
 
-See the screeshot for more info.
+The scripts in 'bin' are used by various config files.
+
+See the screenshot for more info.

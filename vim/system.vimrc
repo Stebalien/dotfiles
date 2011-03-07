@@ -11,7 +11,7 @@
 runtime! archlinux.vim
 
 " If you prefer the old-style vim functionalty, add 'runtime! vimrc_example.vim'
-" Or better yet, read /usr/share/vim/vim72/vimrc_example.vim or the vim manual
+" Or better yet, read /usr/share/vim/vim73/vimrc_example.vim or the vim manual
 " and configure vim to your own liking!
 
 " Syntax
@@ -40,7 +40,7 @@ endfunction
 com Paste call TogglePaste()
 
 " View Man page
-source /usr/share/vim/vim72/ftplugin/man.vim
+source /usr/share/vim/vim73/ftplugin/man.vim
 
 " Tabbing
 set shiftwidth=4
@@ -55,11 +55,10 @@ inoremap <expr> <M-,> pumvisible() ? '<C-n>' :
   \ '<C-x><C-o><C-n><C-p><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
 highlight Pmenu ctermbg=blue ctermfg=white
 
-" Quit on q
-map q :q<CR>
 
 " Tabs
 imap <C-t> <Esc>:tabnew<CR>
 map t :tabnew<CR>:e 
 map <Tab> :tabn<CR>
-map <s-tab> :tabp<CR>
+map <S-Tab> :tabp<CR>
+map [Z :tabp<CR>

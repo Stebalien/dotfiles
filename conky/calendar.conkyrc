@@ -1,0 +1,169 @@
+# Conky sample configuration
+#
+# the list of variables has been removed from this file in favour
+# of keeping the documentation more maintainable.
+# Check http://conky.sf.net for an up-to-date-list.
+
+# set to true if you want Conky to be forked in the background
+background false
+# background no
+
+# X font when Xft is disabled, you can pick one with program xfontsel artwiz package?
+#font 5x8
+#font 6x9
+#font 6x10
+#font 6x13
+#font 8x13
+#font 9x15
+font snap.se
+#font -*-*-*-*-*-*-34-*-*-*-*-*-*-*
+
+# Use Xft?
+use_xft yes
+
+# Set conky on the bottom of all other applications
+# on_bottom no
+
+# Xft font when Xft is enabled
+#xftfont DejaVu Sans Mono:size=8
+
+# Text alpha when using Xft
+xftalpha 1.0
+
+# Print everything to stdout?
+# out_to_console no
+
+# MPD host/port
+# mpd_host localhost
+# mpd_port 6600
+# mpd_password tinker_bell
+
+# Print everything to console?
+# out_to_console no
+
+# mail spool
+# mail_spool $MAIL
+
+# Update interval in seconds
+update_interval 5
+
+# This is the number of times Conky will update before quitting.
+# Set to zero to run forever.
+total_run_times 0
+
+# Create own window instead of using desktop (required in nautilus)
+#own_window yes
+#own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
+
+# Use pseudo transparency with own_window?
+own_window_argb_visual no
+own_window_argb_value 156
+own_window_transparent no
+own_window yes
+own_window_type desktop
+own_window_hints below,skip_pager,skip_taskbar,undecorated,sticky
+own_window_title "Calendar"
+# If own_window_transparent is set to no, you can set the background colour here
+own_window_colour 111111
+
+# Use double buffering (reduces flicker, may not work for everyone)
+double_buffer yes
+
+# Minimum size of text area
+minimum_size 120 200
+
+# Draw shades?
+draw_shades no
+
+# Draw outlines?
+draw_outline no
+
+# Draw borders around text
+draw_borders yes
+
+# Stippled borders?
+stippled_borders 0
+
+# border width
+border_width 1
+
+# Default colors and also border colors
+default_color 333333
+default_shade_color white
+default_outline_color black
+color1 777777
+color2 bbbbbb
+color3 0090ff
+color4 ffffff
+color5 aff73e
+
+# Text alignment, other possible values are commented
+#alignment top_left
+alignment top_right
+#alignment bottom_left
+#alignment bottom_right
+#alignment none
+
+# Gap between borders of screen and text
+# same thing as passing -x at command line
+gap_x 5
+gap_y 20
+
+# Subtract file system buffers from used memory?
+no_buffers yes
+
+# set to yes if you want all text to be in uppercase
+uppercase no
+
+# number of cpu samples to average
+# set to 1 to disable averaging
+cpu_avg_samples 2
+
+# number of net samples to average
+# set to 1 to disable averaging
+net_avg_samples 2
+
+# Force UTF8? note that UTF8 support required XFT
+override_utf8_locale no
+
+# Pad Percents/spacer
+pad_percents 3
+use_spacer left
+
+# Force it to be the right size
+maximum_width 240
+
+#   mldonkey_hostname     Hostname for mldonkey stuff, defaults to localhost
+#   mldonkey_port         Mldonkey port, 4001 default
+#   mldonkey_login        Mldonkey login, default none
+#   mldonkey_password     Mldonkey password, default none
+
+# boinc (seti) dir
+# seti_dir /opt/seti
+text_buffer_size 2048
+if_up_strictness address
+top_name_width 10
+default_bar_size 50 5
+# variable is given either in format $variable or in ${variable}. Latter
+# allows characters right after the variable and must be used in network
+# stuff because of an argument
+
+# stuff after 'TEXT' will be formatted on screen
+template0 ${texeci 3600 /home/steb/.config/conky/conkyForecast.py --location=USMA0066 --datatype=\1 -i}
+template1 ${texeci 3600 /home/steb/.config/conky/conkyForecast.py --location=USMA0066 --datatype=\1 -i -s \2}
+
+TEXT
+${color5}Calendar${font}${goto 135}${color5}Weather${color1}         ${template0 HT}${goto 0}${voffset 6} ${color}${hr}${goto 0}${voffset 10} ${font Droid Sans Mono:size=8}${color4}    ${time %B %Y}${goto 0}${voffset 12} Mo Tu We Th Fr Sa Su
+$color1${execpi 3600 DJS=`date +%_d`; cal -m | tail -n+3 | sed -e :a -e '$!N;s/\n/${goto 0}${voffset 12} /;ta;' -e s/"$DJS"'\b'/'${color5}'"$DJS"'$color1'/}${if_gw}${voffset -70}${font :size=6}${goto 135}${color4}Today:${color1}${alignr}[${template1 HT 0} / ${template1 LT 0}]
+${goto 135}  ${template1 CT 0}${alignr}${template1 PC 0}
+${goto 135}${color4}Tomorrow:${color1}${alignr}[${template1 HT 1} / ${template1 LT 1}]
+${goto 135}  ${template1 CT 1}${alignr}${template1 PC 1}
+${goto 135}${color4}Day After:${color1}${alignr}[${template1 HT 2} / ${template1 LT 2}]
+${goto 135}  ${template1 CT 2}${alignr}${template1 PC 2}${else} ${voffset -60}${goto 135}       Offline
+
+
+${endif}
+
+${font}${color5}Mail${color}
+${voffset -6}${hr}${color4}${font Droid Sans Mono:size=6}
+${exec zsh -c "{~/.config/conky/mail.awk ~/.mail/**/INBOX/new/* || echo '\n\n\n                  No new mail.'} 2>/dev/null"}

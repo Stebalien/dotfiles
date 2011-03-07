@@ -1,9 +1,10 @@
 #======================================================#
 # Boring details
-set realname = "Name"
+set realname = "<YOUR REAL NAME>"
 set use_from = yes
-set envelope_from ="yes"
+#set envelope_from ="yes"
 set sendmail = "/usr/bin/msmtp"
+set hostname = "<YOUR HOST NAME>"
 
 #======================================================#
 # Folders
@@ -12,7 +13,6 @@ set move = no
 set folder="$HOME/.mail"                # Mailboxes in here
 set postponed=+postponed
 set header_cache=$XDG_CACHE_HOME/mutt/headers
-set message_cachedir=$XDG_CACHE_HOME/mutt/messages
 set tmpdir=$XDG_CACHE_HOME
 
 #======================================================#
@@ -49,4 +49,4 @@ source $XDG_CONFIG_HOME/mutt/lists.muttrc
 
 #======================================================#
 # Turn off the led on start.
-push "<shell-escape>xset -led 3<enter>"
+push '<shell-escape>test -n "$DISPLAY" && xset -led 3 || true<enter>'

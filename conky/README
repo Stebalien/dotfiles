@@ -1,12 +1,11 @@
-system.conkyrc:
- System Information
- * Disk info
- * Networking (wireless, wired, vpn)
- * Top Programs
+calendar.conkyrc:
+  calendar, weather, email.
+  You may need to edit the mail line in the calendar conkyrc.
+
 
 main.conkyrc:
  Statusbar like information
  * cpu,mem,disk io, bandwidth, updates, battery, mail
  NOTE: Change PATH_TO_YOUR_MAIL to your maildir
 
-I also have a calendar/pim conkyrc. See http://blog.stebalien.com/2010/05/turn-zim-desktop-wiki-into-calendar.html
+Be sure to update the paths.

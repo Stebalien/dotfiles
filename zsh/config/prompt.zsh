@@ -1,19 +1,19 @@
 #!/bin/zsh
 
-typeset -ga preexec_functions
 typeset -ga precmd_functions
 typeset -ga chpwd_functions
 
 # git branch
 export __CURRENT_GIT_BRANCH=
 parse_git_branch() {
+        [[ $(git status -s 2>/dev/null |wc -l) -gt 0 ]] && local color="%{$fg[yellow]%}" || local color="%{$fg[green]%}"
         git branch --no-color 2> /dev/null \
-            | sed -ne "s/^\* \(.*\)$/%{$fg[green]%} (\1)%{$reset_color%}/p"
+            | sed -ne "s/^\* \(.*\)$/${color} (\1${changed})%{$reset_color%}/p"
 }
 
-preexec_functions+='zsh_preexec_update_git_vars'
-zsh_preexec_update_git_vars() {
-        case "$(history $HISTCMD)" in 
+precmd_functions+='zsh_precmd_update_git_vars'
+zsh_precmd_update_git_vars() {
+        case "$(history $(($HISTCMD-1)))" in 
                 *git*)
                 export __CURRENT_GIT_BRANCH="$(parse_git_branch)"
                 ;;
@@ -32,7 +32,8 @@ get_git_prompt_info() {
 setopt PROMPT_SUBST
 
 PROMPT="
-%{$fg[black]$bold_color%}┌╸%b%{$fg[blue]%}%n%{$fg[black]$bold_color%}╺─╸%b%{$fg[cyan]%}%~\$(get_git_prompt_info)%{$fg[black]$bold_color%}╺%{$fg[green]%}%(1j: %j:)
-%{$fg[black]$bold_color%}└─\$(sudo -n true 2>/dev/null && echo '%{$fg[green]%}')╍ %{$reset_color%}"
+%{$fg_bold[black]%}┌╸%{$fg_no_bold[blue]%}%n%{$fg_bold[black]%}╺─╸%{$fg_no_bold[cyan]%}%~\$(get_git_prompt_info)%{$fg_bold[black]%}╺%{$fg[green]%}%(1j: %j:)
+%{$fg_bold[black]%}└─╍ %{$reset_color%}"
+# \$(sudo -n true 2>/dev/null && echo '%{$fg[green]%}')
 
-PROMPT2="%{$fg[black]$bold_color%}│%_├╍ %{$reset_color%}"
+PROMPT2="%{$fg_bold[black]%}[s[1A├[1B[1D└─╍ %{$reset_color%}"

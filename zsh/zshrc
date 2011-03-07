@@ -3,7 +3,6 @@ zstyle ':completion:*' completer _expand _complete _ignored _approximate
 zstyle ':completion:*' group-name ''
 zstyle ':completion:*' ignore-parents parent pwd
 zstyle ':completion:*' insert-unambiguous true
-zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 zstyle ':completion:*' matcher-list '' 'm:{[:lower:]}={[:upper:]}' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' 'r:|[._-]=* r:|=* l:|=*'
 
 # Kill and killall
@@ -43,9 +42,20 @@ bindkey "\e[A" history-beginning-search-backward
 bindkey "\e[B" history-beginning-search-forward
 bindkey '^A' vi-beginning-of-line
 bindkey '^E' vi-end-of-line
+bindkey "^W" backward-kill-word    # vi-backward-kill-word
+bindkey "^H" backward-delete-char  # vi-backward-delete-char
+bindkey "^U" backward-kill-line    # vi-kill-line
+bindkey "^?" backward-delete-char  # vi-backward-delete-char
+
+bindkey -s '\er' "ranger\n"
+bindkey -s '\e\e[A' "cd ..\n"
+bindkey -s '\e\e[D' "cd -\n"
+bindkey -s '\el' "ls\n"
+
+bindkey '\e\e[B' clear-screen
 
 # Remove sudo tty ticket on exit
-zshexit() { sudo -n test -d /var/run/sudo/`whoami`/ 2> /dev/null && sudo -n rm /var/run/sudo/`whoami`/$(basename `tty`) }
+#zshexit() { sudo -n test -d /var/run/sudo/`whoami`/ 2> /dev/null && sudo -n rm /var/run/sudo/`whoami`/$(basename `tty`) }
 
 
 # Source Global Functions

@@ -1,0 +1,35 @@
+# Transparent background theme by Marcin Michałowski
+# Modified by Steven Allen <steven@stebalien.com>
+
+background           = default      default
+frame                = black        default    bold
+window_title         = white        default
+directory            = blue         default
+selected_directory   = black        green
+playlist             = green        default    bold
+selected_playlist    = white        blue       bold
+file                 = blue         default    bold
+selected_file        = black        green
+marked_file          = green        black
+marked_selected_file = red          green
+info                 = blue         default    bold
+status               = white        default
+title                = white        default    bold
+state                = white        default    bold
+current_time         = white        default    bold
+time_left            = white        default    bold
+total_time           = white        default    bold
+time_total_frames    = white        default
+sound_parameters     = white        default    bold
+legend               = white        default
+disabled             = blue         default    bold
+enabled              = white        default    bold
+empty_mixer_bar      = white        default
+filled_mixer_bar     = black        blue
+empty_time_bar       = white        default
+filled_time_bar      = black        blue
+entry                = white        default
+entry_title          = black        cyan
+error                = red          default    bold
+message              = green        default    bold
+plist_time           = white        default    bold

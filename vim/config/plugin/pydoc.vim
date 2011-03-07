@@ -100,6 +100,7 @@ au FileType python,man map <buffer> <leader>pw :call ShowPyDoc('<C-R><C-W>', 1)<
 au FileType python,man map <buffer> <leader>pW :call ShowPyDoc('<C-R><C-A>', 1)<CR>
 au FileType python,man map <buffer> <leader>pk :call ShowPyDoc('<C-R><C-W>', 0)<CR>
 au FileType python,man map <buffer> <leader>pK :call ShowPyDoc('<C-R><C-A>', 0)<CR>
+au FileTYpe python,man map <buffer> K :call ShowPyDoc(expand("<cWORD>"), 1)<CR>
 
 "commands
 command -nargs=1 Pydoc :call ShowPyDoc('<args>', 1)

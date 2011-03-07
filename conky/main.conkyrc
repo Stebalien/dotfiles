@@ -33,8 +33,8 @@ xftalpha 0.7
 # out_to_console no
 
 # MPD host/port
-# mpd_host localhost
-# mpd_port 6600
+#mpd_host 127.0.0.1
+#mpd_port 6600
 # mpd_password tinker_bell
 
 # Print everything to console?
@@ -55,15 +55,15 @@ total_run_times 0
 #own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
 
 # Use pseudo transparency with own_window?
-own_window_argb_visual yes
-own_window_argb_value 200
+own_window_argb_visual no
+own_window_argb_value 156
 own_window_transparent no
 own_window yes
 own_window_type desktop
-own_window_hints sticky,skip_pager,skip_taskbar,below,undecorated
+own_window_hints below,skip_pager,skip_taskbar,undecorated,sticky
+own_window_title "Main"
 # If own_window_transparent is set to no, you can set the background colour here
-own_window_colour 000000
-own_window_title Main
+own_window_colour 111111
 
 # Use double buffering (reduces flicker, may not work for everyone)
 double_buffer yes
@@ -141,7 +141,23 @@ use_spacer left
 
 # stuff after 'TEXT' will be formatted on screen
 
+#${color3}${if_mpd_playing} ${if_match "${mpd_status}" == "Playing"}>${else}II${endif} : ${mpd_title 24}${else}Not Playing${endif}\
+#${color3}${if_match "${moc_state}" == "PLAY"}>${else}II${endif} : ${moc_song }\
 if_up_strictness address
 
 TEXT
-${color3}${if_mpd_playing}${mpd_status}: ${mpd_title 30}${else}Not Playing${endif}${alignc -60}${color1}[ cpu: ${color2}$cpu%${color1}${color1} ] [ mem: ${color2}$mem${color1} ] [ bat: ${color2}${if_match ${battery_percent} <= 10}${color fad43d}${endif}${battery_short}${color1} ] [ temp: ${color2}${acpitemp}F${color1} ] [ io:${color2}$diskio_write/$diskio_read${color1}] [ net:${color2}${if_up eth0}${upspeed eth0}/${downspeed eth0}${else}${upspeed wlan0}/${downspeed wlan0}${endif}${color1} ] [ vol:${color2}${if_mixer_mute} -  ${else}${mixer}%${endif}${color1} ] [ stat: ${color2}${texeci 300 sh -c "ionice -c3 nice pacman -Quq |wc -l"}${color1}u${color2} ${unseen_mails PATH_TO_YOUR_MAIL}:${unseen_mails PATH_TO_YOUR_MAIL}${color1}m ]${alignr}${color3}${time %I:%M%P %a[%m|%d|%y]}
+${color3}${execi 5 mocp -Q "%song"} \
+${goto 200}${color1}[ cpu: ${color2}$cpu${color1}${color1} ${goto 260}] \
+[ mem: ${color2}$mem${color1} ${goto 360}] \
+[ bat: ${color2}${if_match ${battery_percent} <= 10}${color fad43d}${endif}${battery_short}${color1} ${goto 445}] \
+[ temp: ${color2}${hwmon 0 temp 1}F${color1} ${goto 530}] \
+[ io:${color2}$diskio_write/$diskio_read${color1} ${goto 655}] \
+[ drv:${color2}${fs_used_perc /}${color1}r${color2}${fs_used_perc /home}${color1}h${color2}${fs_used_perc /var}${color1}v ] \
+[ ${if_up tun0}${color darkred}+${color1}${endif}${if_up eth0}eth:${color2}${upspeed eth0}/${downspeed eth0}${else}${if_up wlan0}wifi:${color2}${upspeed wlan0}/${downspeed wlan0}${else}   No Connection${endif}${endif}${color1} ${goto 915}] \
+[ vol:${color2}${if_mixer_mute} -  ${else}${mixer}${endif}${color1} ] \
+[ stat:\
+ ${color2}${texeci 300 sh -c "ionice -c3 nice pacman -Quq |wc -l"}${color1}u${color2}\
+ ${texeci 300 sh -c 'ionice -c3 nice canto -a'}${color1}n${color2}\
+ ${unseen_mails /home/steb/.mail/GMail/INBOX}:${unseen_mails /home/steb/.mail/MIT/INBOX}${color1}m \
+]\
+${alignr}${color3}${time %R %a[%m|%d|%y]}

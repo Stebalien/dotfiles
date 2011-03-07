@@ -32,6 +32,19 @@ alias srm='srm -Dv'
 alias quit='exit'
 alias :q='exit'
 
+# Spelling
+alias les='less'
+alias pg='pkg'
+
+# VPN
+vpn() {
+    if [ -d /etc/openvpn/$1 ]; then
+        cd /etc/openvpn/$1
+        sudo openvpn client.conf
+    else
+        sudo openconnect --script /etc/vpnc/vpnc-script $1
+    fi
+}
 alias p="pgrep -lf"
 calc(){ awk "BEGIN{ print $* }"}
 alias calc="noglob calc"
@@ -44,3 +57,10 @@ service() {
         echo "Service \"$serv\" does not exist" >&2
     fi
 }
+
+ranger() {
+    command ranger --fail-unless-cd $@ &&
+        cd "$(grep \^\' ~/.config/ranger/bookmarks | cut -b3-)" ||
+        return 0
+}
+
