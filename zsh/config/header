@@ -1,4 +1,6 @@
 #!/bin/bash
 clear
 echo -e "\n\e[1;30m│\e[1;34m$(hostname)\e[1;30m ⠶ \e[1;32m$(tty)\e[1;30m├─┤\e[0;36m$(date +%m\|%d\|%y)\e[1;30m│\e[0m"
-
+echo -e "\n\e[1;30m>> todo:"
+/usr/bin/todd list | sed -e 's/\([0-9]*\) \[.\] \[[1-5]\] \(.*\)/>>> \1. \2/'
+echo -ne "\e[0m"
