@@ -5,13 +5,14 @@ theme = {}
 
 theme.font          = "snap 8"
 
-theme.bg_normal     = "#111111"
+theme.bg_normal     = "#111111dd"
+
 theme.bg_focus      = "#111111"
-theme.bg_urgent     = "#aff73e"
+theme.bg_urgent     = "#afd700"
 theme.bg_minimize   = "#111111"
 
 theme.fg_normal     = "#aaaaaa"
-theme.fg_focus      = "#aff73e"
+theme.fg_focus      = "#afd700"
 theme.fg_urgent     = "#850d0d"
 theme.fg_minimize   = "#555555"
 
@@ -28,19 +29,25 @@ theme.border_marked = "#91231c"
 -- tooltip_[font|opacity|fg_color|bg_color|border_width|border_color]
 -- mouse_finder_[color|timeout|animate_timeout|radius|factor]
 -- Example:
---theme.taglist_bg_focus = "#ff0000"
+
+theme.tooltip_opacity = .9
+theme.tooltip_font = "MonteCarlo 8"
+theme.tooltip_fg_color = "#aaaaaa"
+
+theme.taglist_bg_focus = "#222222"
+theme.taglist_bg_urgent = "#991000"
 
 -- Display the taglist squares
-theme.taglist_squares_sel   = "~/.config/awesome/themes/default/taglist/squarefw.png"
-theme.taglist_squares_unsel = "~/.config/awesome/themes/default/taglist/squarew.png"
-theme.taglist_bg_focus = theme.bg_normal
+--theme.taglist_squares_sel   = "/home/steb/.config/awesome/themes/default/taglist/squarefw.png"
+--theme.taglist_squares_unsel = "/home/steb/.config/awesome/themes/default/taglist/squarew.png"
+--theme.taglist_bg_focus = theme.bg_normal
 
 --theme.tasklist_floating_icon = "/usr/share/awesome/themes/default/tasklist/floatingw.png"
 
 -- Variables set for theming the menu:
 -- menu_[bg|fg]_[normal|focus]
 -- menu_[border_color|border_width]
-theme.menu_submenu_icon = "~/.config/awesome/themes/default/submenu.png"
+theme.menu_submenu_icon = "/home/steb/.config/awesome/themes/default/submenu.png"
 theme.menu_height = "12"
 theme.menu_width  = "100"
 theme.menu_border_width = "0"
