@@ -27,7 +27,7 @@ if [[ "$terminfo[colors]" -ge 8 ]]; then
     LESS_TERMCAP_ue=$'\E[0m'
     LESS_TERMCAP_us=$'\E[04;38;5;146m'
 
-    export LS_COLORS="$LS_COLORS:*.swp=37:*.pyo=37:*.pyc=37:*.java=32:*.py=32:*.c=32:*.html=32:*.css=32:*.js=32:*.rst=32"
+    export LS_COLORS="$LS_COLORS:*.swp=37:*.pyo=37:*.pyc=37:*.java=32:*.py=32:*.lua=32:*.c=32:*.html=32:*.css=32:*.js=32:*.rst=32"
     zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 fi
 

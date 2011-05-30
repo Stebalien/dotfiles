@@ -13,16 +13,24 @@ require("revelation")
 require("eminent")
 require("table")
 require("vicious")
+require("vicious.contrib")
 require("lognotify")
+require("wicd")
+require("mail")
+require("math")
 -- }}}
 
 -- {{{ Variable definitions
 -- This is used later as the default terminal and editor to run.
-terminal = "term"
+terminal = os.getenv("TERMINAL") or "/usr/bin/urxvt"
 editor = os.getenv("EDITOR") or "vim"
 config_dir = awful.util.getdir("config")
 home_dir = os.getenv("HOME")
 editor_cmd = terminal .. " -e " .. editor
+
+-- Disable startup notifications
+local spawn = awful.util.spawn
+awful.util.spawn = function (s) spawn(s, false) end
 
 -- Themes define colours, icons, and wallpapers
 beautiful.init(config_dir .. "/themes/current/theme.lua")
@@ -78,7 +86,7 @@ mysystemmenu = {
     { "network", "term -e sudo iftop" },
     { "printers", "xdg-open http://localhost:631"},
     { "system", "term -e htop" },
-    { "connections", "term -e wicd-curses" },
+    { "connections", wicd.launch},
     { "volume", "term -e alsamixr" },
 }
 mysettingsmenu = {
@@ -95,7 +103,7 @@ mymainmenu = awful.menu({ items = {
             { "  news", "term -e newsbeuter" },
             { "TOOLS", nil},
             { "  file", "pcmanfm -d" },
-            { "  music", "term -e mocp" },
+            { "  music", "term -e ncmpcpp" },
             { "  terminal", "term" },
             { "preferences", mysettingsmenu },
             { "system", mysystemmenu },
@@ -112,7 +120,8 @@ sep = widget({ type = "textbox" })
 sep.text = " ] [ "
 
 r_end = widget({ type = "textbox" })
-r_end.text = " ]           "
+r_end.text = " ] "
+r_end.width = 50
 
 l_end = widget({ type = "textbox" })
 l_end.text = "[ "
@@ -123,7 +132,7 @@ mysystray = widget({ type = "systray" })
 -- }}}
 
 -- {{{ Date
-datewidget = awful.widget.textclock({ align = "right" }, "<span color=\"" .. beautiful.fg_focus .. "\">%R %a[%m|%d|%y]</span> ")
+datewidget = awful.widget.textclock({ align = "right" }, "<span color=\"" .. beautiful.fg_focus .. "\">%R %a[%d|%m|%y]</span> ")
 datewidget_t = awful.tooltip({
     objects = {datewidget},
     timer_function = function()
@@ -142,7 +151,7 @@ memwidget_t = awful.tooltip({
     end
 })
 memwidget_t:set_timeout(10)
-vicious.register(memwidget, vicious.widgets.mem, "mem: <span color=\"#bbbbbb\">$2mb</span>", 13)
+vicious.register(memwidget, vicious.widgets.mem, "mem: <span color=\"#bbbbbb\">$2</span>", 13)
 -- }}}
 
 -- {{{ CPU
@@ -165,7 +174,7 @@ tempwidget_t = awful.tooltip({
         return awful.util.pread("acpi -tf")
     end
 })
-vicious.register(tempwidget, vicious.widgets.thermal, "temp: <span color=\"#bbbbbb\">$1c</span>", 17, "thermal_zone0")
+vicious.register(tempwidget, vicious.widgets.thermal, "temp: <span color=\"#bbbbbb\">$1</span>", 17, "thermal_zone0")
 -- }}}
 
 -- {{{ Volume
@@ -173,20 +182,20 @@ volwidget = widget({ type = "textbox" })
 volwidget_t = awful.tooltip({
     objects = {volwidget},
     timer_function = function()
-        return awful.util.pread("amixer sget Master")
+        return awful.util.pread("amixer get Master")
     end
 })
 volwidget:buttons(awful.util.table.join(
                         awful.button({ }, 1, function ()
-                            awful.util.spawn("amixer -q set Master toggle")
+                            awful.util.spawn("amixer set Master toggle")
                             vicious.force({volwidget})
                         end),
                         awful.button({ }, 4, function ()
-                            awful.util.spawn("amixer -q set Master 1+")
+                            awful.util.spawn("amixer set Master 1%+ unmute")
                             vicious.force({volwidget})
                         end),
                         awful.button({ }, 5, function ()
-                            awful.util.spawn("amixer -q set Master 1-")
+                            awful.util.spawn("amixer set Master 1%- unmute")
                             vicious.force({volwidget})
                         end)
                         ))
@@ -217,16 +226,24 @@ vicious.register(fswidget, vicious.widgets.fs, "drv: <span color=\"#bbbbbb\">${/
 
 -- {{{Net
 netwidget = widget({ type = "textbox" })
-netwidget.width = 120
+netwidget:buttons(awful.util.table.join(
+                        awful.button({ }, 1, wicd.launch),
+                        awful.button({ }, 3, wicd.toggle)
+                        ))
 netwidget_t = awful.tooltip({
     objects = {netwidget},
     timer_function = function()
-        return awful.util.escape(awful.util.pread("ip -o -f inet addr") .. "\n" .. awful.util.pread("iwconfig"))
+        local essid = awful.util.pread("iwgetid --raw")
+        if essid == "" then
+            return awful.util.escape(awful.util.pread("ip -o -f inet addr"))
+        else
+            return awful.util.escape("Wireless: " .. essid .. awful.util.pread("ip -o -f inet addr"))
+        end
     end
 })
 vicious.register(netwidget, vicious.widgets.net,
   function (widget, args)
-      return string.format("net:  <span color=\"#bbbbbb\">%dkb / %dkb</span>", args["{eth0 up_kb}"] + args["{wlan0 up_kb}"], args["{eth0 down_kb}"] + args["{wlan0 down_kb}"])
+      return string.format("net: <span color=\"#bbbbbb\">% 4d</span>u <span color=\"#bbbbbb\">% 5d</span>d", args["{eth0 up_kb}"] + args["{wlan0 up_kb}"], args["{eth0 down_kb}"] + args["{wlan0 down_kb}"])
   end, 3)
 -- }}}
 
@@ -240,7 +257,10 @@ mailwidget:buttons(awful.util.table.join(
 mailwidget_t = awful.tooltip({
     objects = {mailwidget},
     timer_function = function()
-        text = awful.util.pread("find " .. home_dir ..  "/.mail/ -wholename \\*/INBOX/new/\\* -exec " .. config_dir .. "/mail.awk {} +")
+        local text = ""
+        for i, m in mail.iter() do
+            text = text .. string.format("%s:\n  %s\n", m["from"], m["subject"])
+        end
         if text == "" then
             return "No new mail."
         else
@@ -254,7 +274,6 @@ vicious.register(mailwidget, vicious.widgets.mdir, "mail: <span color=\"#bbbbbb\
 
 -- {{{ Weather
 weatherwidget = widget({ type = "textbox" })
-weatherwidget.width = 200
 weatherwidget:buttons(awful.util.table.join(
                         awful.button({ }, 1, function ()
                             awful.util.spawn("firefox 'http://www.weather.com/weather/today/MIT+Museum+MA+51475:20'")
@@ -264,13 +283,45 @@ weatherwidget:buttons(awful.util.table.join(
 weatherwidget_t = awful.tooltip({
     objects = {weatherwidget},
     timer_function = function()
-        return awful.util.escape(awful.util.pread("weather -i kbos"))
+        return awful.util.escape(awful.util.pread("weather -i kcqt"))
     end
 })
 mailwidget_t:set_timeout(600)
-vicious.register(weatherwidget, vicious.widgets.weather, "weather: <span color=\"#bbbbbb\">${tempf}</span> |<span color=\"#bbbbbb\"> ${sky}</span>", 600, "KBOS")
+vicious.register(weatherwidget, vicious.widgets.weather, "wr: <span color=\"#bbbbbb\">${tempf}</span>", 600, "KCQT")
 -- }}}
 
+-- {{{ MPD
+
+mpdwidget = widget({ type = "textbox" })
+mpdwidget.width = 200
+mpdwidget:buttons(awful.util.table.join(
+                        awful.button({ }, 1, function ()
+                            awful.util.spawn("mpc toggle")
+                            vicious.force({mpdwidget})
+                        end),
+                        awful.button({ }, 3, function ()
+                            awful.util.spawn("mpc next")
+                            vicious.force({mpdwidget})
+                        end),
+                        awful.button({ }, 4, function ()
+                            awful.util.spawn("mpc prev")
+                            vicious.force({mpdwidget})
+                        end)
+                        ))
+mpdwidget_t = awful.tooltip({
+    objects = {mpdwidget},
+    timer_function = function()
+        return awful.util.escape(awful.util.pread("mpc"))
+    end
+})
+vicious.register(mpdwidget, vicious.widgets.mpd, function(widget, args)
+    if args["{state}"] == "Play" then
+        return "mpd: <span color=\"#bbbbbb\">" .. args["{Artist}"] .. " - " .. args["{Title}"] .. "</span>"
+    else
+        return "mpd: <span color=\"#bbbbbb\">(" .. args["{Artist}"] .. " - " .. args["{Title}"] .. ")</span>"
+    end
+end, 5)
+-- }}}
 
 
 
@@ -312,6 +363,8 @@ for s = 1, screen.count() do
             mysystray,
             datewidget,
             r_end,
+            mpdwidget,
+            sep,
             weatherwidget,
             sep,
             mailwidget,
@@ -346,6 +399,7 @@ end
 -- {{{ Mouse bindings
 root.buttons(awful.util.table.join(
     awful.button({ }, 1, function () mymainmenu:hide() end),
+    awful.button({ }, 2, function () wicd.toggle() end),
     awful.button({ }, 3, function () mymainmenu:toggle() end),
     awful.button({ }, 4, awful.tag.viewnext),
     awful.button({ }, 5, awful.tag.viewprev)
@@ -360,7 +414,7 @@ globalkeys = awful.util.table.join(
     awful.key({"Control", "Shift"}, "h", function () awful.util.spawn("pcmanfm -d") end), -- File Manager
     awful.key({ modkey }, "Up", revelation.revelation), -- Revelation
     awful.key({ "Control", "Mod1" }, "Up", revelation.revelation), -- Revelation
-    awful.key({}, "XF86Launch1", function () awful.util.spawn("wicd-cli -yS") end), -- Refresh wireless network list
+    awful.key({}, "XF86Launch1", function () wicd.scan() end), -- Refresh wireless network list
     awful.key({ modkey }, "d", function () awful.util.spawn("dict") end), -- Lookup selected words.
     awful.key({ }, "Print", function () awful.util.spawn("scrot") end), -- Take a screenshot.
     awful.key({ modkey }, "a", function ()
@@ -396,26 +450,41 @@ globalkeys = awful.util.table.join(
 
     -- dmenu
     awful.key({ modkey }, "r", function () awful.util.spawn("dmenu-tools run-awesome") end), -- Run
-    awful.key({ 'Mod3' }, "m", function () awful.util.spawn("dmenu-tools moc") end), -- MOC
+    --awful.key({ 'Mod3' }, "m", function () awful.util.spawn("dmenu-tools mpd") end), -- MOC
     awful.key({ modkey }, " ", function () awful.util.spawn("dmenu-tools launch") end), -- Launch
 
-    -- MOC
-    awful.key({}, "#172", function () awful.util.spawn("mocp -G") end), -- Pause/Play
-    awful.key({}, "#174", function () awful.util.spawn("moc-notify") end), -- Notify song
-    awful.key({}, "#173", function () awful.util.spawn("mocp -r") end), -- Next
-    awful.key({}, "#171", function () awful.util.spawn("mocp -f") end), -- Previous
+    -- Pause/Play
+    awful.key({}, "#172", function ()
+        awful.util.spawn("mpc toggle")
+        vicious.force({mpdwidget})
+    end),
+    -- Remove Song
+    awful.key({}, "#174", function ()
+        awful.util.spawn("mpc del 0")
+        vicious.force({mpdwidget})
+    end),
+    -- Next
+    awful.key({}, "#173", function ()
+        awful.util.spawn("mpc prev")
+        vicious.force({mpdwidget})
+    end),
+    -- Previous
+    awful.key({}, "#171", function ()
+        awful.util.spawn("mpc next")
+        vicious.force({mpdwidget})
+    end),
 
     -- Volume
     awful.key({}, "#121", function ()
-        awful.util.spawn("amixer -q set Master toggle")
+		awful.util.spawn("amixer set Master toggle")
         vicious.force({volwidget})
     end), -- MUTE
     awful.key({}, "XF86AudioLowerVolume", function ()
-        awful.util.spawn("amixer -q set Master 1- unmute")
+		awful.util.spawn("amixer set Master 1%- unmute")
         vicious.force({volwidget})
     end), -- DOWN
     awful.key({}, "XF86AudioRaiseVolume", function ()
-        awful.util.spawn("amixer -q set Master 1+ unmute")
+		awful.util.spawn("amixer set Master 1%+ unmute")
         vicious.force({volwidget})
     end), -- UP
 
@@ -565,7 +634,13 @@ end
 clientbuttons = awful.util.table.join(
     awful.button({ }, 1, function (c) client.focus = c; c:raise() end),
     awful.button({ modkey }, 1, awful.mouse.client.move),
-    awful.button({ modkey }, 3, awful.mouse.client.resize)
+    awful.button({ modkey }, 3, awful.mouse.client.resize),
+    awful.button({ modkey }, 4, function(c)
+        c.opacity = math.min(c.opacity + .1, 1)
+    end),
+    awful.button({ modkey }, 5, function(c)
+        c.opacity = math.max(c.opacity - .1, .2)
+    end)
 )
 -- Set keys
 root.keys(globalkeys)
@@ -578,10 +653,14 @@ awful.rules.rules = {
       properties = { border_width = beautiful.border_width,
                      border_color = beautiful.border_normal,
                      focus = true,
+                     maximized_vertical = false,
+                     maximized_horizontal = false,
                      keys = clientkeys,
                      buttons = clientbuttons } },
     { rule = { class = "MPlayer" },
       properties = { floating = true } },
+    { rule = { type = "dialog" },
+      properties = { opacity = 0.95 } },
     { rule = { class = "pinentry" },
       properties = { floating = true } },
     { rule = { class = "Firefox", name="Downloads" },
@@ -601,19 +680,7 @@ awful.rules.rules = {
     { rule = { class = "gnome-mplayer" },
        properties = { floating = true, ontop = true } },
     { rule = { class = "Pithos", name = "Pithos"},
-      properties = {
-          floating = true,
-          size_hints_honor = false,
-          struts = {left=400}
-      },
-      callback = function(c)
-          local w = screen[c.screen].workarea
-          c:geometry({x = w.x-400, width = 400, height = w.height, y = w.y})
-          c:add_signal("property::geometry", function (c)
-              local w = screen[c.screen].workarea
-              c:geometry({x = w.x-400, width = 400, height = w.height, y = w.y})
-          end)
-      end
+      callback = awful.client.setslave
     },
     { rule = { class = "Conky" },
        properties = { tag = tags[1][1], switchtotag = false, floating = true } },

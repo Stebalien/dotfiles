@@ -1,9 +1,9 @@
 local timer = timer
 local pairs = pairs
 local ipairs = ipairs
-local naughty = naughty
-local awful = awful
-local io = io
+local naughty = require "naughty"
+local awful = require "awful"
+local io = require "io"
 local inotify = require("inotify")
 
 module("lognotify")
