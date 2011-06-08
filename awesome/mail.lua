@@ -4,7 +4,6 @@ local string = require "string"
 local os = require "os"
 local io = require "io"
 local lfs = require "lfs"
-local pairs = pairs
 local next = next
 -- }}}
 
@@ -37,7 +36,7 @@ local decode = function(val)
 end
 
 local parse = function(file)
-    local e = {}
+    local e = {subject="(none)", from="Anonymous"}
     local i = 0
     for line in io.lines(file) do
         if string.sub(line, 1, 6) == "From: " then
@@ -71,11 +70,8 @@ iter = function()
                     cdir_iter, cdir_meta = lfs.dir(d)
                 end
             end
-        until f ~= nil and string.sub(f, 1, 1) ~= '.'
-        f = d .. '/' .. f
-        if lfs.attributes(f, "mode") == "file" then
-            return i, parse(f)
-        end
+        until f ~= nil and lfs.attributes(d .. '/' .. f, "mode") == "file"
+        return i, parse(d .. '/' .. f)
     end, nmdirs, nil
 end
 -- vim: foldmethod=marker:filetype=lua
