@@ -1,8 +1,15 @@
 #!/bin/bash
 # ls
-alias ll='ls -lh'
+#alias ls='ls -hF --color=auto --group-directories-first'
+#alias ll='ls -l'
+#alias la='ls -A'
+#alias l='ls -CF'
+
+alias ls='ls++ -hF --group-directories-first'
+alias ll='ls'
 alias la='ls -A'
-alias l='ls -CF'
+alias l='command ls -hF --color=auto --group-directories-first'
+
 
 # ipython: awesome python interpreter
 python() {
@@ -22,41 +29,25 @@ alias lsgroup='cat /etc/group'
 alias lsuser='cat /etc/passwd'
 alias tracerout='tracepath'
 alias spell='aspell -a <<< '
-alias webshare='python -c "import SimpleHTTPServer; SimpleHTTPServer.test();"'
+alias webshare='python2 -c "import SimpleHTTPServer; SimpleHTTPServer.test();"'
 alias vim='vim -p'
 alias vi='vi -p'
 alias bc='bc -l'
 alias rless='command less'
 alias less='/usr/share/vim/vim73/macros/less.sh'
-alias srm='srm -Dv'
 alias quit='exit'
 alias :q='exit'
+alias lsmail='~/.config/conky/mail.awk ~/.mail/**/new/*'
 
 # Spelling
 alias les='less'
 alias pg='pkg'
 
 # VPN
-vpn() {
-    if [ -d /etc/openvpn/$1 ]; then
-        cd /etc/openvpn/$1
-        sudo openvpn client.conf
-    else
-        sudo openconnect --script /etc/vpnc/vpnc-script $1
-    fi
-}
 alias p="pgrep -lf"
 calc(){ awk "BEGIN{ print $* }"}
 alias calc="noglob calc"
-service() {
-    serv=$1
-    if test -x /etc/rc.d/$serv; then
-        shift 1
-        sudo /etc/rc.d/$serv $@
-    else
-        echo "Service \"$serv\" does not exist" >&2
-    fi
-}
+alias service="sudo systemctl"
 
 ranger() {
     command ranger --fail-unless-cd $@ &&

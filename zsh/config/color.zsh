@@ -4,7 +4,6 @@ if [[ "$terminfo[colors]" -ge 8 ]]; then
     colors
     
     # ls
-    alias ls='ls -hF --color=auto --group-directories-first'
     eval $(dircolors -b)
     
     # Grep
