@@ -15,7 +15,7 @@ let colors_name = "busybee"
 
 " Vim >= 7.0 specific colors
 if version >= 700
-  hi CursorLine    guibg=#202020 ctermbg=234
+  hi CursorLine    guibg=#202020 ctermbg=234 cterm=NONE
   hi CursorColumn  guibg=#202020 ctermbg=234
   hi MatchParen    guifg=#d0ffc0 guibg=#202020 gui=bold ctermfg=157 ctermbg=237 cterm=bold
   hi Pmenu 		   guifg=#ffffff guibg=#202020 ctermfg=255 ctermbg=238
@@ -32,8 +32,10 @@ hi StatusLineNC    guifg=#939395 guibg=#303030 gui=none ctermfg=246 ctermbg=238
 hi VertSplit 	   guifg=#444444 guibg=#303030 gui=none ctermfg=238 ctermbg=238
 hi Folded 		   guibg=#384048 guifg=#a0a8b0 gui=none ctermbg=8 ctermfg=248
 hi Title		   guifg=#f6f3e8 guibg=NONE	gui=bold ctermfg=254 cterm=bold
-hi Visual		   guifg=#faf4c6 guibg=#3c414c gui=none ctermfg=254 ctermbg=4
+hi Visual		   guifg=#faf4c6 guibg=#3c414c gui=none ctermfg=254 ctermbg=241
 hi SpecialKey	   guifg=#808080 guibg=#343434 gui=none ctermfg=244 ctermbg=236
+hi SignColumn     guifg=#303030 guibg=#1a1a1a gui=none ctermfg=244 ctermbg=234
+
 
 " Syntax highlighting
 hi Comment 		   guifg=#3f3f3f gui=italic ctermfg=244

@@ -20,8 +20,8 @@ filetype plugin indent on
 set ofu=syntaxcomplete#Complete
 
 " Look and feel
-set background=dark
-colorscheme dante
+set background="dark"
+colors busybee
 set number
 set hls
 set autoindent
