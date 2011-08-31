@@ -8,5 +8,4 @@ for file in $XDG_CONFIG_HOME/mutt/*.accountrc; do
     done
     echo -n '; '
 done
-echo -n 'source $XDG_CONFIG_HOME/mutt/default-account; '
-echo "exec next-unread-mailbox"
+echo 'source $XDG_CONFIG_HOME/mutt/default-account'

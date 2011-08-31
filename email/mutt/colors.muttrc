@@ -23,7 +23,7 @@ color index      brightblue   default "~l ~O"
 color index      brightred    default ~F
 color index      brightblack  default ~D
 
-color body       brightwhite        default ".*"
+color body       brightwhite        default "."
 
 color header brightblue default "^(From|Subject):"
 

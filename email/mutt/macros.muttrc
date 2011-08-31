@@ -1,6 +1,6 @@
 # vim: filetype=muttrc :
 
-macro index,pager I "<shell-escape> `[[ -z $DISPLAY ]] && echo 'dbus-launch '`offlineimap -o<enter>"
+macro index,pager I "<shell-escape>pkill -USR1 -x offlineimap<enter>"
 
 # bindings
 bind pager i            exit
@@ -23,6 +23,11 @@ bind index,pager R      group-reply
 macro index \Cr "<tag-prefix><clear-flag>N" "mark tagged messages as read"
 macro index B   "<limit>~b "                "search message bodies"
 
+macro index,pager \cb "<pipe-message> urlscan<Enter>" "call urlscan to extract URLs out of a message"
+macro attach,compose \cb "<pipe-entry> urlscan<Enter>" "call urlscan to extract URLs out of a message"
+
 # save a decoded copy in ~
 macro index P   "<pipe-message>cat > ~/"    "save message as"
 macro index y   "<change-folder>?<toggle-mailboxes>
+
+macro attach s "<save-entry><home>~/Downloads/<end>"

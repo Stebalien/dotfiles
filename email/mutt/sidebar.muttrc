@@ -12,5 +12,5 @@ bind index <esc>k sidebar-prev
 bind index <esc>j sidebar-next
 bind index <esc>l sidebar-open
 
-message-hook ~A 'unset sidebar_visible; exec refresh'
-macro pager q  "<exit><enter-command>set sidebar_visible<return><refresh>"
+#message-hook ~A 'unset sidebar_visible; exec refresh'
+#macro pager q  "<exit><enter-command>set sidebar_visible<return><refresh>"

@@ -22,3 +22,5 @@ set menu_scroll
 set tilde
 set wait_key = no
 set sort=threads
+unset help
+alternative_order text/plain text/enriched text/html

@@ -1,10 +1,9 @@
 #======================================================#
 # Boring details
-set realname = "<YOUR REAL NAME>"
+set realname = "<NAME>"
 set use_from = yes
 #set envelope_from ="yes"
 set sendmail = "/usr/bin/msmtp"
-set hostname = "<YOUR HOST NAME>"
 
 #======================================================#
 # Folders
@@ -20,7 +19,7 @@ set tmpdir=$XDG_CACHE_HOME
 hdr_order Subject: From: To: Cc: Date:
 ignore *
 unignore Date: From: To: Cc: Subject:
-               
+
 #======================================================#
 # Formats
 set date_format         = "%m-%d-%y"

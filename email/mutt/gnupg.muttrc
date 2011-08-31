@@ -4,8 +4,8 @@ set pgp_verify_command="gpg --no-verbose --batch --output - --verify %s %f"
 set pgp_decrypt_command="gpg --passphrase-fd 0 --no-verbose --batch --output - %f"
 set pgp_sign_command="gpg --no-verbose --batch --output - --passphrase-fd 0 --armor --detach-sign --textmode %?a?-u %a? %f"
 set pgp_clearsign_command="gpg --no-verbose --batch --output - --passphrase-fd 0 --armor --textmode --clearsign %?a?-u %a? %f"
-set pgp_encrypt_only_command="pgpewrap gpg --batch --quiet --no-verbose --output - --encrypt --textmode --armor --always-trust --encrypt-to <YOUR KEY> -- -r %r -- %f"
-set pgp_encrypt_sign_command="pgpewrap gpg --passphrase-fd 0 --batch --quiet --no-verbose --textmode --output - --encrypt --sign %?a?-u %a? --armor --always-trust --encrypt-to <YOUR KEY> -- -r %r -- %f"
+set pgp_encrypt_only_command="pgpewrap gpg --batch --quiet --no-verbose --output - --encrypt --textmode --armor --always-trust --encrypt-to <KEY_ID> -- -r %r -- %f"
+set pgp_encrypt_sign_command="pgpewrap gpg --passphrase-fd 0 --batch --quiet --no-verbose --textmode --output - --encrypt --sign %?a?-u %a? --armor --always-trust --encrypt-to <KEY_ID> -- -r %r -- %f"
 set pgp_import_command="gpg --no-verbose --import -v %f"
 set pgp_export_command="gpg --no-verbose --export --armor %r"
 set pgp_verify_key_command="gpg --no-verbose --batch --fingerprint --check-sigs %r"
@@ -13,7 +13,7 @@ set pgp_list_pubring_command="gpg --no-verbose --batch --with-colons --list-keys
 set pgp_list_secring_command="gpg --no-verbose --batch --with-colons --list-secret-keys %r" 
 
 # specify the uid to use when encrypting/signing
-set pgp_sign_as=<YOUR KEY>
+set pgp_sign_as=<KEY_ID>
 
 # this set the number of seconds to keep in memory the passpharse used to encrypt/sign
 # the more the less secure it will be
@@ -39,5 +39,8 @@ set crypt_replysignencrypted=yes
 # automatically verify the sign of a message when opened
 set crypt_verify_sig=yes
 
+# Auto decode inline gnupg
+set pgp_auto_decode=yes
+
 # Add a header
-my_hdr X-PGP-Key: http://pgp.mit.edu:11371/pks/lookup?op=get&search=0xD8549F57252BA385
+my_hdr X-PGP-Key: <KEY_URL>

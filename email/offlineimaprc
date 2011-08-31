@@ -1,8 +1,8 @@
 [general]
-accounts = GMail
+accounts = GMail,MIT
 maxsyncaccounts = 2
 socktimeout = 60
-ui = TTY.TTYUI
+ui = TTYUI
 metadata = ~/.local/share/offlineimap
 pythonfile = /usr/local/bin/pykeyring
 
@@ -20,6 +20,7 @@ localfolders = ~/.mail/GMail
 
 [Repository GMail-Remote]
 type = Gmail
+idlefolders = ['INBOX']
 remoteusereval = get_username("imap.gmail.com", "imap")
 remotepasseval = get_password("imap.gmail.com", "imap")
 realdelete = no
