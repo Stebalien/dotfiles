@@ -21,6 +21,8 @@ python() {
 }
 alias uu='pkg u'
 alias pacman='pacman-color'
+alias netcfg='sudo netcfg'
+alias wifi-select='sudo wifi-select wlan0'
 
 # tools
 alias up='cd ..'
@@ -38,16 +40,15 @@ alias less='/usr/share/vim/vim73/macros/less.sh'
 alias quit='exit'
 alias :q='exit'
 alias lsmail='~/.config/conky/mail.awk ~/.mail/**/new/*'
+alias curlpaste='curlpaste -X'
+alias rmmodall='cat /proc/modules | cut -d" " -f1 | xargs sudo rmmod'
+alias calc="wcalc"
+alias p="pgrep -lf"
 
 # Spelling
 alias les='less'
 alias pg='pkg'
 
-# VPN
-alias p="pgrep -lf"
-calc(){ awk "BEGIN{ print $* }"}
-alias calc="noglob calc"
-alias service="sudo systemctl"
 
 ranger() {
     command ranger --fail-unless-cd $@ &&
@@ -55,3 +56,10 @@ ranger() {
         return 0
 }
 
+off() {
+    if [[ -n "$DISPLAY" ]]; then
+        xsession shutdown
+    else
+        dbus-send --system --print-reply --dest="org.freedesktop.ConsoleKit" /org/freedesktop/ConsoleKit/Manager org.freedesktop.ConsoleKit.Manager.Stop || sudo shutdown -h now
+    fi
+}
