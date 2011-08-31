@@ -4,7 +4,9 @@ local string = require "string"
 local os = require "os"
 local io = require "io"
 local lfs = require "lfs"
+local b64 = require "base64"
 local next = next
+local print = print
 -- }}}
 
 module("mail")
@@ -26,13 +28,10 @@ end
 -- {{{ Helpers
 local decode = function(val)
     if string.find(val, "^=\?.*\?.*=") ~= nil then
-        local d = io.popen(DECODER, "rw")
-        d:write(line)
-        d:flush()
-        val = d:read()
-        d:close()
+        return b64.decode(val)
+    else
+        return val
     end
-    return val
 end
 
 local parse = function(file)
