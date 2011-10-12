@@ -1,0 +1,3 @@
+[submodule "awesome"]
+	path = awesome
+	url = git@github.com:Stebalien/awesomewm-config.git
