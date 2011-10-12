@@ -12,6 +12,7 @@ zstyle ':completion:*' group-name ''
 zstyle ':completion:*' ignore-parents parent pwd
 zstyle ':completion:*' insert-unambiguous true
 zstyle ':completion:*' matcher-list '' 'm:{[:lower:]}={[:upper:]}' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' 'r:|[._-]=* r:|=* l:|=*'
+zstyle ':completion:*:-tilde-:*' tag-order named-directories
 
 # Kill and killall
 zstyle ':completion:*:*:kill:*' menu yes select
@@ -38,6 +39,7 @@ alias find='noglob find'
 alias pacman='noglob pacman'
 alias pkg='noglob pkg'
 alias wcalc='noglob wcalc'
+alias git='noglob git'
 
 zstyle :compinstall filename "$HOME/.zshrc"
 
