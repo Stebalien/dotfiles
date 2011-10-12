@@ -1,4 +1,0 @@
-'config/' is '~/.vim/'
-'system.vimrc' is '/etc/vimrc'
-'user.vimrc' is '~/.vimrc'
-'gvimrc' is '~/.gvimrc'
