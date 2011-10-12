@@ -13,6 +13,9 @@ Current Configurations
     * tmux
     * xchat
     * irssi
+    * awesome-wm
+    * conky
+    * moc
 
 Note:
     The scripts in 'bin' are used by various config files.
