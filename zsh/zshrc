@@ -33,6 +33,7 @@ alias mkdir='nocorrect mkdir'
 alias pkg='nocorrect pkg'
 alias man='nocorrect man'
 alias git='nocorrect git'
+alias sudo='nocorrect sudo'
 
 # Disable globbing on some commands
 alias find='noglob find'
