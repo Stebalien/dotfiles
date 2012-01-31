@@ -1,8 +1,8 @@
 #!/bin/bash
 clear
 echo -e "\n\e[1;30m[\e[0;34m$(hostname)\e[1;30m : \e[1;32m$(tty)\e[1;30m]"
-echo -e "\n\e[1;30mTodo:"
-/usr/bin/todd list byrank | sed -e 's/\([0-9]*\) \[.\] \[[1-5]\] \(.*\)/+ \1. \2/'
+#echo -e "\n\e[1;30mTodo:"
+#/usr/bin/todd list byrank | sed -e 's/\([0-9]*\) \[.\] \[[1-5]\] \(.*\)/+ \1. \2/'
 echo -e ""
 rem | sed -e '/^$/d' -e '2,$s/^/+ /'
 echo -ne "\e[0m"

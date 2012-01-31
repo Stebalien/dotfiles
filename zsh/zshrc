@@ -13,6 +13,8 @@ zstyle ':completion:*' ignore-parents parent pwd
 zstyle ':completion:*' insert-unambiguous true
 zstyle ':completion:*' matcher-list '' 'm:{[:lower:]}={[:upper:]}' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' 'r:|[._-]=* r:|=* l:|=*'
 zstyle ':completion:*:-tilde-:*' tag-order named-directories
+zstyle ':completion:*' use-cache on
+zstyle ':completion:*' cache-path ~/.cache
 
 # Kill and killall
 zstyle ':completion:*:*:kill:*' menu yes select
@@ -34,6 +36,7 @@ alias pkg='nocorrect pkg'
 alias man='nocorrect man'
 alias git='nocorrect git'
 alias sudo='nocorrect sudo'
+alias pkill='nocorrect pkill'
 
 # Disable globbing on some commands
 alias find='noglob find'
@@ -49,7 +52,7 @@ compinit
 # }}}
 
 # {{{ History
-HISTFILE=$XDG_CONFIG_HOME/shell/history
+HISTFILE=$XDG_DATA_HOME/shell/history
 HISTSIZE=1000
 SAVEHIST=1000
 # }}}

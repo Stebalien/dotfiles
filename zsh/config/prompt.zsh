@@ -1,4 +1,6 @@
 #!/bin/zsh
+bat_now_path=/sys/class/power_supply/BAT0/(charge|energy)_now
+bat_full_path=/sys/class/power_supply/BAT0/(charge|energy)_full_design
 
 sp_info() {
     if sudo -n true 2>/dev/null; then
@@ -9,14 +11,14 @@ sp_info() {
 }
 
 bat_info() {
-    local now=$(</sys/class/power_supply/BAT0/charge_now)
-    local full=$(</sys/class/power_supply/BAT0/charge_full_design)
+    setopt globsubst
 
-    if [[ $(((now*100)/full)) -lt 5 ]]; then
+    if [[ $((($(<$(echo $bat_now_path))*100)/$(<$(echo $bat_full_path)))) -lt 5 ]]; then
         bat_arr="%{$fg[yellow]%}>"
     else
         bat_arr=">"
     fi
+    unsetopt globsubst
 }
 
 # GIT
@@ -37,7 +39,7 @@ precmd () {
 setopt PROMPT_SUBST
 
 PROMPT="
-%{$fg_bold[black]%}[%{$fg_no_bold[blue]%}%~\${vcs_info_msg_0_}%{$fg_bold[black]%}]%{$fg[green]%}%(1j: %j:)
+%{$fg_bold[black]%}[%{$fg_no_bold[blue]%}%m:%~\${vcs_info_msg_0_}%{$fg_bold[black]%}]%{$fg[green]%}%(1j: %j:)
 %{$fg_bold[black]%}>\${bat_arr}\${sp_arr} %{$reset_color%}"
 
 

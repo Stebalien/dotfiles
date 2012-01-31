@@ -14,22 +14,19 @@ alias l='command ls -hF --color=auto --group-directories-first'
 # ipython: awesome python interpreter
 python() {
     if [ $# -eq 0 ]; then
-        ipython
+        ipython2
     else
         command python $@
     fi
 }
 alias uu='pkg u'
 alias pacman='pacman-color'
-alias netcfg='sudo netcfg'
-alias wifi-select='sudo wifi-select wlan0'
 
 # tools
 alias up='cd ..'
 alias home='cd ~'
 alias lsgroup='cat /etc/group'
 alias lsuser='cat /etc/passwd'
-alias tracerout='tracepath'
 alias spell='aspell -a <<< '
 alias webshare='python2 -c "import SimpleHTTPServer; SimpleHTTPServer.test();"'
 alias vim='vim -p'
@@ -41,20 +38,17 @@ alias quit='exit'
 alias :q='exit'
 alias lsmail='~/.config/conky/mail.awk ~/.mail/**/new/*'
 alias curlpaste='curlpaste -X'
-alias rmmodall='cat /proc/modules | cut -d" " -f1 | xargs sudo rmmod'
 alias calc="wcalc"
 alias p="pgrep -lf"
+alias whois="whois -H"
+alias walkman-sync="rsync --files-from=$XDG_DATA_HOME/mpd/playlists/best.m3u $HOME/Media/Music /media/WALKMAN/MUSIC; sync"
 
 # Spelling
 alias les='less'
 alias pg='pkg'
 
 
-ranger() {
-    command ranger --fail-unless-cd $@ &&
-        cd "$(grep \^\' ~/.config/ranger/bookmarks | cut -b3-)" ||
-        return 0
-}
+alias owl='ssh -t linerva.mit.edu owl-tmux'
 
 off() {
     if [[ -n "$DISPLAY" ]]; then
@@ -63,3 +57,5 @@ off() {
         dbus-send --system --print-reply --dest="org.freedesktop.ConsoleKit" /org/freedesktop/ConsoleKit/Manager org.freedesktop.ConsoleKit.Manager.Stop || sudo shutdown -h now
     fi
 }
+
+alias mit-sync='rsync -avz -e ssh ~/Documents/MIT/* MIT:~/Documents/'
