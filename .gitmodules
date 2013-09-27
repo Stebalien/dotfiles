@@ -4,3 +4,6 @@
 [submodule "vim"]
 	path = vim
 	url = git@github.com:Stebalien/vim-config.git
+[submodule "bspwm"]
+	path = bspwm
+	url = https://github.com/Stebalien/bspwm-config.git
